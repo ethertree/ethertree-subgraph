@@ -1,0 +1,32 @@
+specVersion: 0.0.2
+schema:
+  file: schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: Arboretum
+    network: kovan
+    source:
+      address: "0xC1CD418cefd9480830bDBC6961893787b2B49B2e"
+      abi: Arboretum
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.4
+      language: wasm/assemblyscript
+      entities:
+        - FruitRedeemed
+        - JoinTree
+        - TreePlanted
+        - TreeWatered
+      abis:
+        - name: Arboretum
+          file: Arboretum/abis/Arboretum.json
+      eventHandlers:
+        - event: FruitRedeemed(uint256,address,uint256)
+          handler: handleFruitRedeemed
+        - event: JoinTree(uint256,address)
+          handler: handleJoinTree
+        - event: TreePlanted(uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256,uint256)
+          handler: handleTreePlanted
+        - event: TreeWatered(uint256,address)
+          handler: handleTreeWatered
+      file: Arboretum/Arboretum.wasm
